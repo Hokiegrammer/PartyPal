@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+
 public class Home_Screen extends AppCompatActivity
 {
     Button inviteBtn;
@@ -39,7 +40,8 @@ public class Home_Screen extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                // Find supplies activity.
+                Intent intent = new Intent(v.getContext(), FindSupplies_Screen.class);
+                startActivityForResult(intent, 0);
             }
         });
 

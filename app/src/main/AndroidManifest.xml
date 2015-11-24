@@ -8,23 +8,26 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity android:name=".InvitationView" />
-
         <activity
-
             android:name=".Home_Screen"
             android:label="@string/title_activity_home__screen"
             android:theme="@style/AppTheme.NoActionBar">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-
+        <activity
+            android:name=".FindSupplies_Screen"
+            android:label="@string/title_activity_find_supplies__screen"
+            android:parentActivityName=".Home_Screen"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cs4634.group5.partypal.Home_Screen" />
+        </activity>
     </application>
 
 </manifest>
