@@ -28,6 +28,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cs4634.group5.partypal.Home_Screen" />
         </activity>
+        <activity
+            android:name=".Category_Screen"
+            android:label="@string/title_activity_category__screen"
+            android:parentActivityName=".FindSupplies_Screen"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cs4634.group5.partypal.FindSupplies_Screen" />
+        </activity>
     </application>
 
 </manifest>
