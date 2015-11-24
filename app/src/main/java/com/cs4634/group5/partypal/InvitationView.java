@@ -7,8 +7,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import org.w3c.dom.Text;
 
@@ -26,17 +29,29 @@ public class InvitationView extends Activity {
 
     public void sendInviteButtonClicked(View view) {
         String subject = ((EditText)findViewById(R.id.whatEditText)).getText().toString();
-        String body = "";
+        StringBuilder body = new StringBuilder();
+        body.append("Hello, \n\n" +
+                "You and your child are invited by " + ((EditText) findViewById(R.id.whoEditText)).getText().toString() + " to "
+                + ((EditText) findViewById(R.id.whatEditText)).getText().toString() + "!\n\n");
+        body.append("" +
+                "\tWhen: " + ((TextView) findViewById(R.id.timeEditText)).getText().toString() + " on " + ((TextView) findViewById(R.id.dateEditText)).getText().toString() + "\n" +
+                "\tWhere: " + ((EditText) findViewById(R.id.whereEditText)).getText().toString() + "\n" +
+                "\n");
+        body.append("For ideas of what to bring as a gift, " + ((EditText) findViewById(R.id.giftIdeasEditText)).getText().toString() + "\n\n");
+        body.append("We also thought it would be important for you to know that " + ((EditText) findViewById(R.id.restrictionsEditText)).getText().toString() +
+                " Thank you for taking this into consideration.\n\n");
+
+        if ( ((ToggleButton)findViewById(R.id.requestRSVPToggleButton)).isChecked() ) {
+            body.append("We would like you RSVP to the event by replying to this email.\n\n");
+        }
+
+        body.append("See you at the party!\n");
 
         Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:"));
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
-        emailIntent.putExtra(Intent.EXTRA_TEXT, body);
+        emailIntent.putExtra(Intent.EXTRA_TEXT, body.toString());
 
         startActivity(Intent.createChooser(emailIntent, "Send email via:"));
-    }
-
-    public void previewInviteButtonClicked(View view) {
-
     }
 
     public void restrictionsHintButtonClicked(View view) {
