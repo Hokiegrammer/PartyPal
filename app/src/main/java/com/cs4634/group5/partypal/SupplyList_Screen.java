@@ -5,13 +5,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 
-public class Category_Screen extends AppCompatActivity
+public class SupplyList_Screen extends AppCompatActivity
 {
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_category__screen);
+        setContentView(R.layout.content_supply_list_screen);
 
         Intent intent = getIntent();
         String screenTitle = (String) intent.getStringExtra("CATEGORY_NAME");

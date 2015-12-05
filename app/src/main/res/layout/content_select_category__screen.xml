@@ -10,7 +10,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:background="#3399ff"
-    tools:context="com.cs4634.group5.partypal.FindSupplies_Screen">
+    tools:context=".SelectCategory_Screen">
 
     <TextView
         android:layout_width="match_parent"

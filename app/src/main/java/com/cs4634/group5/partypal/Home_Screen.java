@@ -45,7 +45,7 @@ public class Home_Screen extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                Intent intent = new Intent(v.getContext(), FindSupplies_Screen.class);
+                Intent intent = new Intent(v.getContext(), SelectCategory_Screen.class);
                 startActivityForResult(intent, 0);
             }
         });

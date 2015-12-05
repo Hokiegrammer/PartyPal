@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".FindSupplies_Screen"
+            android:name=".SelectCategory_Screen"
             android:label="@string/title_activity_find_supplies__screen"
             android:parentActivityName=".Home_Screen"
             android:theme="@style/AppTheme.NoActionBar">
@@ -29,13 +29,13 @@
                 android:value="com.cs4634.group5.partypal.Home_Screen" />
         </activity>
         <activity
-            android:name=".Category_Screen"
+            android:name=".SupplyList_Screen"
             android:label="@string/title_activity_category__screen"
-            android:parentActivityName=".FindSupplies_Screen"
+            android:parentActivityName=".SelectCategory_Screen"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.cs4634.group5.partypal.FindSupplies_Screen" />
+                android:value=".SelectCategory_Screen" />
         </activity>
         <activity
             android:name=".ShoppingList_Screen"

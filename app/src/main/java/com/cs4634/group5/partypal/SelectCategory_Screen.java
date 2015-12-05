@@ -1,6 +1,5 @@
 package com.cs4634.group5.partypal;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,32 +11,33 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 
-public class FindSupplies_Screen extends AppCompatActivity
+public class SelectCategory_Screen extends AppCompatActivity
 {
-    ListView SupplyListView;
+    ListView categoryList;
 
-    ArrayAdapter<SupplyItem> adapter;
-    ArrayList<SupplyItem> supplies = new ArrayList<SupplyItem>();
+    ArrayAdapter<String> adapter;
+    ArrayList<String> categories = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_find_supplies__screen);
+        setContentView(R.layout.content_select_category__screen);
 
         //TODO fill supply list
 
-        adapter = new FindSupplies_Adapter(this.getApplicationContext(), -1, supplies);
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_single_choice, categories);
 
-        SupplyListView = (ListView)findViewById(R.id.c);
+        categoryList = (ListView)findViewById(R.id.categoryList);
 
         categoryList.setAdapter(adapter);
 
 
         // TODO Hard coded, will update later.
-        categories.add("Category 1");
-        categories.add("Category 2");
-        categories.add("Category 3");
+        categories.add("Tableware");
+        categories.add("Decorations");
+        categories.add("Party Favors");
+        categories.add("Entertainment");
 
         categoryList.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
@@ -47,7 +47,7 @@ public class FindSupplies_Screen extends AppCompatActivity
                 String selectedCategory = parent.getItemAtPosition(pos).toString();
 
 
-                Intent intent = new Intent(view.getContext(), Category_Screen.class);
+                Intent intent = new Intent(view.getContext(), SupplyList_Screen.class);
                 intent.putExtra("CATEGORY_NAME", selectedCategory);
                 startActivityForResult(intent, 0);
             }

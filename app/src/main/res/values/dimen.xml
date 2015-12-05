@@ -8,5 +8,7 @@
         name="activity_horizontal_margin"
         >5dp</dimen>
 
+    <dimen name="text_margin">16dp</dimen>
+
 
 </resources>
