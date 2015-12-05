@@ -1,5 +1,6 @@
 package com.cs4634.group5.partypal;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,10 +14,10 @@ import java.util.ArrayList;
 
 public class FindSupplies_Screen extends AppCompatActivity
 {
-    ListView categoryList;
+    ListView SupplyListView;
 
-    ArrayAdapter<String> adapter;
-    ArrayList<String> categories = new ArrayList<String>();
+    ArrayAdapter<SupplyItem> adapter;
+    ArrayList<SupplyItem> supplies = new ArrayList<SupplyItem>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -24,14 +25,16 @@ public class FindSupplies_Screen extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_find_supplies__screen);
 
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, categories);
+        //TODO fill supply list
 
-        categoryList = (ListView)findViewById(R.id.categoryList);
+        adapter = new FindSupplies_Adapter(this.getApplicationContext(), -1, supplies);
+
+        SupplyListView = (ListView)findViewById(R.id.c);
 
         categoryList.setAdapter(adapter);
 
 
-        // Hard coded, will update later.
+        // TODO Hard coded, will update later.
         categories.add("Category 1");
         categories.add("Category 2");
         categories.add("Category 3");
