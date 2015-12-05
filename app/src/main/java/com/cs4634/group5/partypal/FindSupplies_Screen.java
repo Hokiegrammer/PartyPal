@@ -36,7 +36,6 @@ public class FindSupplies_Screen extends AppCompatActivity
         categories.add("Category 2");
         categories.add("Category 3");
 
-
         categoryList.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             @Override

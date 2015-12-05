@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.ArrayList;
+
 
 public class Home_Screen extends AppCompatActivity
 {
@@ -13,6 +15,9 @@ public class Home_Screen extends AppCompatActivity
     Button findSuppliesBtn;
     Button shoppingListBtn;
     Button venueBtn;
+
+    // Will change from type String to Fragment.
+    public static ArrayList<String> shoppingList = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -50,7 +55,8 @@ public class Home_Screen extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                // Shopping list activity.
+                Intent intent = new Intent(v.getContext(), ShoppingList_Screen.class);
+                startActivityForResult(intent, 0);
             }
         });
 

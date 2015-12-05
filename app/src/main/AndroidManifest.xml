@@ -37,6 +37,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cs4634.group5.partypal.FindSupplies_Screen" />
         </activity>
+        <activity
+            android:name=".ShoppingList_Screen"
+            android:label="@string/title_activity_shopping_list__screen"
+            android:parentActivityName=".Home_Screen"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cs4634.group5.partypal.Home_Screen" />
+        </activity>
     </application>
 
 </manifest>
