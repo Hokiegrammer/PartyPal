@@ -73,7 +73,7 @@ public class FindSupplies_Adapter extends ArrayAdapter<SupplyItem> {
 
         // set store image
         ImageView storeImageView = (ImageView) rowView.findViewById(R.id.itemImage);
-        storeImageView.setImageURI(suppliesList.get(position).getStore().image());
+        storeImageView.setImageResource(suppliesList.get(position).getStore().image());
 
         // set checkbox event
         CheckBox itemCheckBox = (CheckBox) rowView.findViewById(R.id.itemCheckBox);
