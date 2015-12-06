@@ -19,7 +19,7 @@
         android:textAlignment="center"
         android:textSize="50dp"
         android:textColor="#000000"
-        android:text="My Shopping List"
+        android:text="Shopping List"
         android:id="@+id/shoppingListTitle"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
@@ -29,6 +29,36 @@
         android:layout_height="wrap_content"
         android:id="@+id/itemsList"
         android:layout_below="@+id/shoppingListTitle"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="false"
+        android:layout_alignEnd="@id/total_textview"
+        android:layout_toStartOf="@id/total_textview"
+        android:paddingBottom="5dp"
+        android:layout_above="@+id/total_textview" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Total: "
+        android:id="@+id/total_textview"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:textSize="30dp"
+        android:paddingLeft="20dp"
+        android:textColor="#000000"
+        android:gravity="center_vertical"
+        android:background="@android:drawable/btn_default" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="$13.50"
+        android:id="@+id/total_price"
+        android:layout_alignBottom="@+id/total_textview"
+        android:layout_alignEnd="@+id/total_textview"
+        android:layout_below="@+id/itemsList"
+        android:gravity="center"
+        android:textSize="30dp"
+        android:textColor="#000000"
+        android:paddingRight="15dp" />
 
 </RelativeLayout>
