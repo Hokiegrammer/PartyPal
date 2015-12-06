@@ -9,12 +9,39 @@ import android.net.Uri;
 public class SupplyItem {
 
     private String name;
-    private Uri imageURI;
-    private float price;
+    private String imageURI;
+    private String price;
     private Store store;
+    private String category;
+
+    public void setName(String n)
+    {
+        name = n;
+    }
+
+    public void setUri(String u)
+    {
+        imageURI = u;
+    }
+
+    public void setPrice(String p)
+    {
+        price = p;
+    }
+
+    public void setStore(Store s)
+    {
+        store = s;
+    }
+
+    public void setCategory(String c)
+    {
+        category = c;
+    }
 
     public String getName() { return name; }
-    public float getPrice() { return price; }
+    public String getPrice() { return price; }
     public Store getStore() { return store; }
-    public Uri getImageURI() { return imageURI; }
+    public String getImageURI() { return imageURI; }
+    public String getCategory() { return category; }
 }

@@ -69,7 +69,7 @@ public class FindSupplies_Adapter extends ArrayAdapter<SupplyItem> {
 
         // set item image
         ImageView itemImageView = (ImageView) rowView.findViewById(R.id.itemImage);
-        itemImageView.setImageURI(suppliesList.get(position).getImageURI());
+        itemImageView.setImageURI(Uri.parse(suppliesList.get(position).getImageURI()));
 
         // set store image
         ImageView storeImageView = (ImageView) rowView.findViewById(R.id.itemImage);
@@ -86,6 +86,4 @@ public class FindSupplies_Adapter extends ArrayAdapter<SupplyItem> {
 
         return rowView;
     }
-
-
 }

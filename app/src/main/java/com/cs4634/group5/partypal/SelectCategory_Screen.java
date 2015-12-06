@@ -24,16 +24,12 @@ public class SelectCategory_Screen extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_select_category__screen);
 
-        //TODO fill supply list
-
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_single_choice, categories);
 
         categoryList = (ListView)findViewById(R.id.categoryList);
 
         categoryList.setAdapter(adapter);
 
-
-        // TODO Hard coded, will update later.
         categories.add("Tableware");
         categories.add("Decorations");
         categories.add("Party Favors");

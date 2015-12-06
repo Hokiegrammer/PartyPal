@@ -17,7 +17,7 @@ public enum Store {
             "Radford Shopping Plaza Shopping Center, 7389 Peppers Ferry Blvd, Radford, VA 24141",
             "210 Marshall Dr, Christiansburg, VA 24073",
             "1341 S Main St, Blacksburg, VA 24060"},
-            R.mipmap.ic_dollar_tree);
+            R.mipmap.ic_dollar_tree),;
 
     private final String[] address;
     private final int storeImage;
