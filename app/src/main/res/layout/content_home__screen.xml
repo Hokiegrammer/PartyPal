@@ -32,7 +32,7 @@
         android:id="@+id/inviteBtn"
         android:layout_below="@+id/homeTitle"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="75dp" />
+        android:layout_marginTop="125dp" />
 
     <Button
         android:layout_width="match_parent"
@@ -52,13 +52,5 @@
         android:layout_below="@+id/findSuppliesBtn"
         android:layout_centerHorizontal="true" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="75dp"
-        android:text="Find Venues"
-        android:textSize="30dp"
-        android:id="@+id/venueBtn"
-        android:layout_below="@+id/shoppingListBtn"
-        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
