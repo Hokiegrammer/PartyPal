@@ -1,7 +1,11 @@
 package com.cs4634.group5.partypal;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.Process;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +15,9 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 /**
@@ -54,7 +61,7 @@ public class FindSupplies_Adapter extends ArrayAdapter<SupplyItem> {
      * @return A View corresponding to the data at the specified position.
      */
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.fragment_item, parent, false);
@@ -65,14 +72,24 @@ public class FindSupplies_Adapter extends ArrayAdapter<SupplyItem> {
 
         // set price
         TextView priceView = (TextView) rowView.findViewById(R.id.itemPrice);
-        priceView.setText("$" + suppliesList.get(position).getPrice());
+        priceView.setText(suppliesList.get(position).getPrice());
 
         // set item image
-        ImageView itemImageView = (ImageView) rowView.findViewById(R.id.itemImage);
-        itemImageView.setImageURI(Uri.parse(suppliesList.get(position).getImageURI()));
+        final ImageView itemImageView = (ImageView) rowView.findViewById(R.id.itemImage);
+        if (!suppliesList.get(position).getImageURL().isEmpty()) {
+            itemImageView.setImageBitmap(suppliesList.get(position).getImageBmp());
+            itemImageView.setBackgroundColor(Color.TRANSPARENT);
+        }
+
+        itemImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         // set store image
-        ImageView storeImageView = (ImageView) rowView.findViewById(R.id.itemImage);
+        ImageView storeImageView = (ImageView) rowView.findViewById(R.id.storeImage);
         storeImageView.setImageResource(suppliesList.get(position).getStore().image());
 
         // set checkbox event
@@ -80,10 +97,15 @@ public class FindSupplies_Adapter extends ArrayAdapter<SupplyItem> {
         itemCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                //TODO implement
+                if (isChecked) {
+                    Home_Screen.shoppingList.add(suppliesList.get(position));
+                } else {
+                    Home_Screen.shoppingList.remove(suppliesList.get(position));
+                }
             }
         });
 
         return rowView;
     }
+
 }

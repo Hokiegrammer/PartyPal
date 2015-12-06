@@ -14,10 +14,9 @@ public class Home_Screen extends AppCompatActivity
     Button inviteBtn;
     Button findSuppliesBtn;
     Button shoppingListBtn;
-    Button venueBtn;
 
-    // Will change from type String to Fragment.
-    public static ArrayList<String> shoppingList = new ArrayList<String>();
+    // Will change from type supplyItem to Fragment.
+    public static ArrayList<SupplyItem> shoppingList = new ArrayList<SupplyItem>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -28,7 +27,6 @@ public class Home_Screen extends AppCompatActivity
         inviteBtn = (Button)findViewById(R.id.inviteBtn);
         findSuppliesBtn = (Button)findViewById(R.id.findSuppliesBtn);
         shoppingListBtn = (Button)findViewById(R.id.shoppingListBtn);
-        venueBtn = (Button)findViewById(R.id.venueBtn);
 
         inviteBtn.setOnClickListener(new View.OnClickListener()
         {
@@ -57,15 +55,6 @@ public class Home_Screen extends AppCompatActivity
             {
                 Intent intent = new Intent(v.getContext(), ShoppingList_Screen.class);
                 startActivityForResult(intent, 0);
-            }
-        });
-
-        venueBtn.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                // Venue activity.
             }
         });
     }

@@ -30,16 +30,14 @@
         android:id="@+id/itemsList"
         android:layout_below="@+id/shoppingListTitle"
         android:layout_alignParentStart="false"
-        android:layout_alignEnd="@id/total_textview"
-        android:layout_toStartOf="@id/total_textview"
         android:paddingBottom="5dp"
-        android:layout_above="@+id/total_textview" />
+        android:layout_above="@+id/totalview" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:text="Total: "
-        android:id="@+id/total_textview"
+        android:id="@+id/totalview"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:textSize="30dp"
@@ -53,8 +51,8 @@
         android:layout_height="wrap_content"
         android:text="$13.50"
         android:id="@+id/total_price"
-        android:layout_alignBottom="@+id/total_textview"
-        android:layout_alignEnd="@+id/total_textview"
+        android:layout_alignBottom="@+id/totalview"
+        android:layout_alignEnd="@+id/totalview"
         android:layout_below="@+id/itemsList"
         android:gravity="center"
         android:textSize="30dp"
