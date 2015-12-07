@@ -69,13 +69,6 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity
-            android:name=".Map_Screen"
-            android:label="@string/title_activity_map__screen">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.cs4634.group5.partypal.ShoppingList_Screen" />
-        </activity>
     </application>
 
 </manifest>

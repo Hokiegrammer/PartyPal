@@ -10,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -67,8 +68,17 @@ public class ShoppingList_Screen extends AppCompatActivity implements LocationLi
             @Override
             public void onClick(View v)
             {
-                Intent intent = new Intent(v.getContext(), Map_Screen.class);
-                startActivityForResult(intent, 0);
+//                LatLng target = new LatLng(37.156946, -80.422643);
+//                LatLng dollarTree = new LatLng(37.216086, -80.400445);
+//                LatLng walmart = new LatLng(37.151522, -80.584975);
+//                Polyline line1 = mMap.addPolyline(myLocation, target);
+//                Polyline line2 = mMap.addPolyline(myLocation, dollarTree);
+//                Polyline line3 = mMap.addPolyline(myLocation, walmart);
+
+
+                Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                        Uri.parse("http://maps.google.com/maps?saddr=37.156946,-80.422643&daddr=37.156946,-80.422643"));
+                startActivity(intent);
             }
         });
     }
@@ -110,28 +120,12 @@ public class ShoppingList_Screen extends AppCompatActivity implements LocationLi
 
     }
 
+
     /**
-     * Called when the provider status changes. This method is called when
-     * a provider is unable to fetch a location or if the provider has recently
-     * become available after a period of unavailability.
-     *
-     * @param provider the name of the location provider associated with this
-     *                 update.
-     * @param status   {@link LocationProvider#OUT_OF_SERVICE} if the
-     *                 provider is out of service, and this is not expected to change in the
-     *                 near future; {@link LocationProvider#TEMPORARILY_UNAVAILABLE} if
-     *                 the provider is temporarily unavailable but is expected to be available
-     *                 shortly; and {@link LocationProvider#AVAILABLE} if the
-     *                 provider is currently available.
-     * @param extras   an optional Bundle which will contain provider specific
-     *                 status variables.
-     *                 <p>
-     *                 <p> A number of common key/value pairs for the extras Bundle are listed
-     *                 below. Providers that use any of the keys on this list must
-     *                 provide the corresponding value as described below.
-     *                 <p>
-     *                 <ul>
-     *                 <li> satellites - the number of satellites used to derive the fix
+     * On Status Change.
+     * @param provider
+     * @param status
+     * @param extras
      */
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
