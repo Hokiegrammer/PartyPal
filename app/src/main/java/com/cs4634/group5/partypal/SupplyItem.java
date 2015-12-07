@@ -37,11 +37,9 @@ public class SupplyItem implements Serializable, Comparable {
     public void setUrl(String u) {
         if (!u.isEmpty()) {
 //            Log.d("MOOP", "SIZE OF THE HASH " + SupplyList_Screen.images.size());
-
-
+            if (imageBmp == null) {
                 new DownloadImageTask().execute(u);
-
-
+            }
         }
         imageURL = u;
     }
@@ -70,9 +68,6 @@ public class SupplyItem implements Serializable, Comparable {
     public Store getStore() { return store; }
     public String getImageURL() { return imageURL; }
     public Bitmap getImageBmp() {
-        if (imageBmp == null) {
-            new DownloadImageTask().execute(name);
-        }
         return imageBmp; }
     public String getCategory() { return category; }
 
