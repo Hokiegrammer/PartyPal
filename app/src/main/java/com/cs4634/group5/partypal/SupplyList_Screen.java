@@ -1,6 +1,7 @@
 package com.cs4634.group5.partypal;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -22,7 +23,10 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.concurrent.ConcurrentHashMap;
 
 
 public class SupplyList_Screen extends AppCompatActivity {
@@ -30,14 +34,20 @@ public class SupplyList_Screen extends AppCompatActivity {
     TextView supplyListTitle;
     ListView supplyList;
 
+
+    public static ConcurrentHashMap<String, Integer> images = null;
+
     Button toMyListBtn;
+
 
     ArrayAdapter<SupplyItem> adapter;
 
-    public static ArrayList<SupplyItem> tablewareItems = new ArrayList<SupplyItem>();
-    public static ArrayList<SupplyItem> decorationItems = new ArrayList<SupplyItem>();
-    public static ArrayList<SupplyItem> partyFavorItems = new ArrayList<SupplyItem>();
-    public static ArrayList<SupplyItem> entertainmentItems = new ArrayList<SupplyItem>();
+    public  ArrayList<SupplyItem> tablewareItems = new ArrayList<SupplyItem>();
+    public  ArrayList<SupplyItem> decorationItems = new ArrayList<SupplyItem>();
+    public  ArrayList<SupplyItem> partyFavorItems = new ArrayList<SupplyItem>();
+    public  ArrayList<SupplyItem> entertainmentItems = new ArrayList<SupplyItem>();
+
+    String screenTitle;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -50,13 +60,25 @@ public class SupplyList_Screen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_supply_list_screen);
 
-        supplyListTitle = (TextView) findViewById(R.id.supplyListTitle);
-        supplyList = (ListView) findViewById(R.id.supplyList);
+        try {
+            Object temp = InternalStorage.readObject(getApplicationContext(), "images");
+            if (temp!=null) {
+                images = (ConcurrentHashMap<String, Integer>) temp;
+            }
+        } catch (Exception e) {
 
-        Intent intent = getIntent();
-        String screenTitle = (String) intent.getStringExtra("CATEGORY_NAME");
+        }
 
-        supplyListTitle.setText(screenTitle);
+        if (images == null) {
+            images = new ConcurrentHashMap<String, Integer>();
+            try {
+                InternalStorage.writeObject(getApplicationContext(), "images", images);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
 
         toMyListBtn = (Button)findViewById(R.id.toMyListBtn);
 
@@ -68,34 +90,28 @@ public class SupplyList_Screen extends AppCompatActivity {
             }
         });
 
-        try {
 
-            // Retrieve the list from internal storage
-            tablewareItems = (ArrayList<SupplyItem>) InternalStorage.readObject(this, "tablewareitems");
 
-            // Retrieve the list from internal storage
-            decorationItems = (ArrayList<SupplyItem>) InternalStorage.readObject(this, "decorationItems");
 
-            // Retrieve the list from internal storage
-            partyFavorItems = (ArrayList<SupplyItem>) InternalStorage.readObject(this, "partyFavorItems");
+                supplyListTitle = (TextView) findViewById(R.id.supplyListTitle);
+                supplyList = (ListView) findViewById(R.id.supplyList);
 
-            // Retrieve the list from internal storage
-            entertainmentItems = (ArrayList<SupplyItem>) InternalStorage.readObject(this, "entertainmentItems");
 
-        } catch (IOException e) {
-            Log.e(TAG, e.getMessage());
-            pullFromXML();
-        } catch (ClassNotFoundException e) {
-            Log.e(TAG, e.getMessage());
-            pullFromXML();
-        }
+                Intent intent = getIntent();
+                screenTitle = (String) intent.getStringExtra("CATEGORY_NAME");
 
-        populateList(screenTitle);
+                supplyListTitle.setText(screenTitle);
+
+                pullFromXML();
+
+                populateList(screenTitle);
+
+
+
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
-
 
     /**
      * Populate the list of items based on the category selected by the user.
@@ -120,6 +136,11 @@ public class SupplyList_Screen extends AppCompatActivity {
             adapter = new FindSupplies_Adapter(getApplicationContext(), -1, entertainmentItems);
             assert (!adapter.isEmpty());
         }
+
+        Collections.sort(tablewareItems);
+        Collections.sort(decorationItems);
+        Collections.sort(partyFavorItems);
+        Collections.sort(entertainmentItems);
 
         supplyList.setAdapter(adapter);
     }
@@ -211,13 +232,18 @@ public class SupplyList_Screen extends AppCompatActivity {
                     // ------------------------------------------------------
 
                     // Add supply item to correct category list.
+                    boolean insert = true;
                     if (newItem.getCategory().equals("tableware")) {
-                        tablewareItems.add(newItem);
+
+                       tablewareItems.add(newItem);
                     } else if (newItem.getCategory().equals("decoration")) {
+
                         decorationItems.add(newItem);
                     } else if (newItem.getCategory().equals("party favor")) {
+
                         partyFavorItems.add(newItem);
                     } else if (newItem.getCategory().equals("entertainment")) {
+
                         entertainmentItems.add(newItem);
                     }
                 }
@@ -229,28 +255,12 @@ public class SupplyList_Screen extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        try {
-            // Save the list of entries to internal storage
-            InternalStorage.writeObject(this, "tablewareItems", tablewareItems);
-
-            // Save the list of entries to internal storage
-            InternalStorage.writeObject(this, "decorationItems", decorationItems);
-
-            // Save the list of entries to internal storage
-            InternalStorage.writeObject(this, "partyFavorItems", partyFavorItems);
-
-            // Save the list of entries to internal storage
-            InternalStorage.writeObject(this, "entertainmentItems", entertainmentItems);
-
-        } catch (IOException e) {
-            Log.e(TAG, e.getMessage());
-        }
     }
 
     @Override
     public void onStart() {
         super.onStart();
+
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -271,6 +281,12 @@ public class SupplyList_Screen extends AppCompatActivity {
     @Override
     public void onStop() {
         super.onStop();
+
+        try {
+            InternalStorage.writeObject(getApplicationContext(), "images", images);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.

@@ -4,8 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.net.Uri;
-import android.os.Process;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +14,9 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.List;
 
 /**
@@ -77,8 +76,28 @@ public class FindSupplies_Adapter extends ArrayAdapter<SupplyItem> {
         // set item image
         final ImageView itemImageView = (ImageView) rowView.findViewById(R.id.itemImage);
         if (!suppliesList.get(position).getImageURL().isEmpty()) {
-            itemImageView.setImageBitmap(suppliesList.get(position).getImageBmp());
+            Bitmap bmp = null;
+            if (SupplyList_Screen.images.containsKey(suppliesList.get(position).getImageURL())) {
+
+                FileInputStream inputStream = null;
+                try {
+                    inputStream = Home_Screen.context.openFileInput(String.valueOf(suppliesList.get(position).getImageURL().hashCode()));
+                    bmp = BitmapFactory.decodeFileDescriptor(inputStream.getFD());
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (bmp == null) {
+                itemImageView.setImageBitmap(suppliesList.get(position).getImageBmp());
+            } else {
+                itemImageView.setImageBitmap(bmp);
+            }
             itemImageView.setBackgroundColor(Color.TRANSPARENT);
+            itemImageView.postInvalidateDelayed(400);
+
         }
 
         itemImageView.setOnClickListener(new View.OnClickListener() {
@@ -106,6 +125,10 @@ public class FindSupplies_Adapter extends ArrayAdapter<SupplyItem> {
         });
 
         return rowView;
+    }
+
+    public void clear() {
+        suppliesList = null;
     }
 
 }
