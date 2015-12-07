@@ -1,11 +1,7 @@
 package com.cs4634.group5.partypal;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.net.Uri;
-import android.os.Process;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +11,6 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.List;
 
 /**
@@ -77,6 +70,7 @@ public class FindSupplies_Adapter extends ArrayAdapter<SupplyItem> {
         // set item image
         final ImageView itemImageView = (ImageView) rowView.findViewById(R.id.itemImage);
         if (!suppliesList.get(position).getImageURL().isEmpty()) {
+            
             itemImageView.setImageBitmap(suppliesList.get(position).getImageBmp());
             itemImageView.setBackgroundColor(Color.TRANSPARENT);
         }
@@ -106,6 +100,10 @@ public class FindSupplies_Adapter extends ArrayAdapter<SupplyItem> {
         });
 
         return rowView;
+    }
+
+    public void clear() {
+        suppliesList = null;
     }
 
 }
