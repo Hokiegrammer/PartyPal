@@ -5,10 +5,12 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +18,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class ShoppingList_Screen extends AppCompatActivity implements LocationListener {
@@ -55,42 +58,55 @@ public class ShoppingList_Screen extends AppCompatActivity implements LocationLi
         }
 
         TextView totalTextView = (TextView) findViewById(R.id.total_price);
-        totalTextView.setOnClickListener(new View.OnClickListener() {
+
+        float priceTotal = getPriceTotal();
+        String displayedTotal = String.valueOf(priceTotal);
+        totalTextView.setText(displayedTotal);
+
+        totalTextView.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
-                // Define a listener that responds to location updates
-                LocationListener locationListener = new LocationListener() {
-                    public void onLocationChanged(Location location) {
-                        // Called when a new location is found by the network location provider.
+            public void onClick(View v)
+            {
+//                LatLng target = new LatLng(37.156946, -80.422643);
+//                LatLng dollarTree = new LatLng(37.216086, -80.400445);
+//                LatLng walmart = new LatLng(37.151522, -80.584975);
+//                Polyline line1 = mMap.addPolyline(myLocation, target);
+//                Polyline line2 = mMap.addPolyline(myLocation, dollarTree);
+//                Polyline line3 = mMap.addPolyline(myLocation, walmart);
 
-                    }
 
-                    public void onStatusChanged(String provider, int status, Bundle extras) {
-                    }
-
-                    public void onProviderEnabled(String provider) {
-                    }
-
-                    public void onProviderDisabled(String provider) {
-                    }
-                };
-
-                LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-                if (ActivityCompat.checkSelfPermission(thisActivity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(thisActivity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    // TODO: Consider calling
-                    //    ActivityCompat#requestPermissions
-                    // here to request the missing permissions, and then overriding
-                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                    //                                          int[] grantResults)
-                    // to handle the case where the user grants the permission. See the documentation
-                    // for ActivityCompat#requestPermissions for more details.
-                    return;
-                }
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+                Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                        Uri.parse("http://maps.google.com/maps?saddr=37.156946,-80.422643&daddr=37.156946,-80.422643"));
+                startActivity(intent);
             }
         });
     }
+
+
+    /**
+     * Will get and return the total price of the shopping list.
+     */
+    public float getPriceTotal()
+    {
+        float total = 0;
+
+        String priceStr = "";
+        String parsedPrice = "";
+        float priceOfItem = 0;
+
+        for (int i = 0; i < Home_Screen.shoppingList.size(); i++)
+        {
+            priceStr = Home_Screen.shoppingList.get(i).getPrice();
+            parsedPrice = priceStr.substring(1, priceStr.length());
+
+            priceOfItem = Float.parseFloat(parsedPrice);
+            total = total + priceOfItem;
+        }
+
+        return total;
+    }
+
 
     /**
      * Called when the location has changed.
@@ -104,28 +120,12 @@ public class ShoppingList_Screen extends AppCompatActivity implements LocationLi
 
     }
 
+
     /**
-     * Called when the provider status changes. This method is called when
-     * a provider is unable to fetch a location or if the provider has recently
-     * become available after a period of unavailability.
-     *
-     * @param provider the name of the location provider associated with this
-     *                 update.
-     * @param status   {@link LocationProvider#OUT_OF_SERVICE} if the
-     *                 provider is out of service, and this is not expected to change in the
-     *                 near future; {@link LocationProvider#TEMPORARILY_UNAVAILABLE} if
-     *                 the provider is temporarily unavailable but is expected to be available
-     *                 shortly; and {@link LocationProvider#AVAILABLE} if the
-     *                 provider is currently available.
-     * @param extras   an optional Bundle which will contain provider specific
-     *                 status variables.
-     *                 <p>
-     *                 <p> A number of common key/value pairs for the extras Bundle are listed
-     *                 below. Providers that use any of the keys on this list must
-     *                 provide the corresponding value as described below.
-     *                 <p>
-     *                 <ul>
-     *                 <li> satellites - the number of satellites used to derive the fix
+     * On Status Change.
+     * @param provider
+     * @param status
+     * @param extras
      */
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {

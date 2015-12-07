@@ -5,4 +5,5 @@
     <string name="title_activity_find_supplies__screen">FindSupplies_Screen</string>
     <string name="title_activity_category__screen">Category_Screen</string>
     <string name="title_activity_shopping_list__screen">ShoppingList_Screen</string>
+    <string name="title_activity_map__screen">Map</string>
 </resources>

@@ -6,7 +6,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,7 +34,11 @@ public class SupplyList_Screen extends AppCompatActivity {
     TextView supplyListTitle;
     ListView supplyList;
 
+
     public static ConcurrentHashMap<String, Integer> images = null;
+
+    Button toMyListBtn;
+
 
     ArrayAdapter<SupplyItem> adapter;
 
@@ -72,21 +78,35 @@ public class SupplyList_Screen extends AppCompatActivity {
             }
         }
 
-        if (adapter == null) {
-
-            supplyListTitle = (TextView) findViewById(R.id.supplyListTitle);
-            supplyList = (ListView) findViewById(R.id.supplyList);
 
 
-            Intent intent = getIntent();
-            screenTitle = (String) intent.getStringExtra("CATEGORY_NAME");
+        toMyListBtn = (Button)findViewById(R.id.toMyListBtn);
 
-            supplyListTitle.setText(screenTitle);
+        toMyListBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ShoppingList_Screen.class);
+                startActivityForResult(intent, 0);
+            }
+        });
 
-            pullFromXML();
 
-            populateList(screenTitle);
-        }
+
+
+                supplyListTitle = (TextView) findViewById(R.id.supplyListTitle);
+                supplyList = (ListView) findViewById(R.id.supplyList);
+
+
+                Intent intent = getIntent();
+                screenTitle = (String) intent.getStringExtra("CATEGORY_NAME");
+
+                supplyListTitle.setText(screenTitle);
+
+                pullFromXML();
+
+                populateList(screenTitle);
+
+
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
