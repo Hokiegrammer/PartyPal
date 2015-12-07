@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class ShoppingList_Screen extends AppCompatActivity implements LocationListener {
@@ -55,42 +57,46 @@ public class ShoppingList_Screen extends AppCompatActivity implements LocationLi
         }
 
         TextView totalTextView = (TextView) findViewById(R.id.total_price);
-        totalTextView.setOnClickListener(new View.OnClickListener() {
+
+        float priceTotal = getPriceTotal();
+        String displayedTotal = String.valueOf(priceTotal);
+        totalTextView.setText(displayedTotal);
+
+        totalTextView.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
-                // Define a listener that responds to location updates
-                LocationListener locationListener = new LocationListener() {
-                    public void onLocationChanged(Location location) {
-                        // Called when a new location is found by the network location provider.
-
-                    }
-
-                    public void onStatusChanged(String provider, int status, Bundle extras) {
-                    }
-
-                    public void onProviderEnabled(String provider) {
-                    }
-
-                    public void onProviderDisabled(String provider) {
-                    }
-                };
-
-                LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-                if (ActivityCompat.checkSelfPermission(thisActivity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(thisActivity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    // TODO: Consider calling
-                    //    ActivityCompat#requestPermissions
-                    // here to request the missing permissions, and then overriding
-                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                    //                                          int[] grantResults)
-                    // to handle the case where the user grants the permission. See the documentation
-                    // for ActivityCompat#requestPermissions for more details.
-                    return;
-                }
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(v.getContext(), Map_Screen.class);
+                startActivityForResult(intent, 0);
             }
         });
     }
+
+
+    /**
+     * Will get and return the total price of the shopping list.
+     */
+    public float getPriceTotal()
+    {
+        float total = 0;
+
+        String priceStr = "";
+        String parsedPrice = "";
+        float priceOfItem = 0;
+
+        for (int i = 0; i < Home_Screen.shoppingList.size(); i++)
+        {
+            priceStr = Home_Screen.shoppingList.get(i).getPrice();
+            parsedPrice = priceStr.substring(1, priceStr.length());
+
+            priceOfItem = Float.parseFloat(parsedPrice);
+            total = total + priceOfItem;
+        }
+
+        return total;
+    }
+
 
     /**
      * Called when the location has changed.

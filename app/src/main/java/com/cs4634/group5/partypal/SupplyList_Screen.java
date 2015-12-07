@@ -5,7 +5,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +29,8 @@ public class SupplyList_Screen extends AppCompatActivity {
     String TAG = "supplyList_Screen";
     TextView supplyListTitle;
     ListView supplyList;
+
+    Button toMyListBtn;
 
     ArrayAdapter<SupplyItem> adapter;
 
@@ -53,6 +57,16 @@ public class SupplyList_Screen extends AppCompatActivity {
         String screenTitle = (String) intent.getStringExtra("CATEGORY_NAME");
 
         supplyListTitle.setText(screenTitle);
+
+        toMyListBtn = (Button)findViewById(R.id.toMyListBtn);
+
+        toMyListBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ShoppingList_Screen.class);
+                startActivityForResult(intent, 0);
+            }
+        });
 
         try {
 
