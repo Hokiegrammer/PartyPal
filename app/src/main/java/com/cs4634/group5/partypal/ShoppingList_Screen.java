@@ -1,24 +1,17 @@
 package com.cs4634.group5.partypal;
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
-import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 public class ShoppingList_Screen extends AppCompatActivity implements LocationListener {
@@ -60,7 +53,7 @@ public class ShoppingList_Screen extends AppCompatActivity implements LocationLi
         TextView totalTextView = (TextView) findViewById(R.id.total_price);
 
         float priceTotal = getPriceTotal();
-        String displayedTotal = String.valueOf(priceTotal);
+        String displayedTotal = "$" + String.valueOf(priceTotal);
         totalTextView.setText(displayedTotal);
 
         totalTextView.setOnClickListener(new View.OnClickListener()
@@ -75,9 +68,51 @@ public class ShoppingList_Screen extends AppCompatActivity implements LocationLi
 //                Polyline line2 = mMap.addPolyline(myLocation, dollarTree);
 //                Polyline line3 = mMap.addPolyline(myLocation, walmart);
 
+                StringBuilder builder = new StringBuilder();
+                builder.append("http://maps.google.com/maps/dir/37.156946,-80.422643/");
+
+
+                boolean selectedTargetItem = false;
+                boolean selectedDollarTreeItem = false;
+                boolean selectedWalmartItem = false;
+
+                for (int i = 0; i < Home_Screen.shoppingList.size(); i++)
+                {
+                    if (Home_Screen.shoppingList.get(i).getStore().toString().equals("TARGET"))
+                    {
+                        selectedTargetItem = true;
+                    }
+
+                    if (Home_Screen.shoppingList.get(i).getStore().toString().equals("DOLLAR_TREE"))
+                    {
+                        selectedDollarTreeItem = true;
+                    }
+
+                    if (Home_Screen.shoppingList.get(i).getStore().toString().equals("WALMART"))
+                    {
+                        selectedWalmartItem = true;
+                    }
+                }
+
+                if (selectedTargetItem) {
+                    // Find Target in navigation.
+                    builder.append(Store.TARGET.address() + "/");
+                }
+
+                if (selectedDollarTreeItem) {
+                    // Find Dollar Tree in navigation.
+                    builder.append(Store.DOLLAR_TREE.address() + "/");
+                }
+
+                if (selectedWalmartItem) {
+                    // Find Walmart in navigation.
+                    builder.append(Store.WALMART.address() + "/");
+                }
+
+                builder.deleteCharAt(builder.length() - 1);
 
                 Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
-                        Uri.parse("http://maps.google.com/maps?saddr=37.156946,-80.422643&daddr=37.156946,-80.422643"));
+                        Uri.parse(builder.toString()));
                 startActivity(intent);
             }
         });

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -115,10 +114,15 @@ public class FindSupplies_Adapter extends ArrayAdapter<SupplyItem> {
         CheckBox itemCheckBox = (CheckBox) rowView.findViewById(R.id.itemCheckBox);
         itemCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+            {
+
+                if (isChecked)
+                {
                     Home_Screen.shoppingList.add(suppliesList.get(position));
-                } else {
+                }
+                else
+                {
                     Home_Screen.shoppingList.remove(suppliesList.get(position));
                 }
             }

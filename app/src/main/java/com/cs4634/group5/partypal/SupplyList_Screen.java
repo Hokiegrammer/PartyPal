@@ -93,18 +93,18 @@ public class SupplyList_Screen extends AppCompatActivity {
 
 
 
-                supplyListTitle = (TextView) findViewById(R.id.supplyListTitle);
-                supplyList = (ListView) findViewById(R.id.supplyList);
+        supplyListTitle = (TextView) findViewById(R.id.supplyListTitle);
+        supplyList = (ListView) findViewById(R.id.supplyList);
 
 
-                Intent intent = getIntent();
-                screenTitle = (String) intent.getStringExtra("CATEGORY_NAME");
+        Intent intent = getIntent();
+        screenTitle = (String) intent.getStringExtra("CATEGORY_NAME");
 
-                supplyListTitle.setText(screenTitle);
+        supplyListTitle.setText(screenTitle);
 
-                pullFromXML();
+        pullFromXML();
 
-                populateList(screenTitle);
+        populateList(screenTitle);
 
 
 
