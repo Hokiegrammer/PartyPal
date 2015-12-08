@@ -14,6 +14,9 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 
 public class ShoppingList_Screen extends AppCompatActivity implements LocationListener {
     FindSupplies_Adapter adapter;
@@ -138,7 +141,10 @@ public class ShoppingList_Screen extends AppCompatActivity implements LocationLi
             total = total + priceOfItem;
         }
 
-        return total;
+        NumberFormat formatter = new DecimalFormat("#0.00");
+
+
+        return Float.valueOf(formatter.format(total));
     }
 
 

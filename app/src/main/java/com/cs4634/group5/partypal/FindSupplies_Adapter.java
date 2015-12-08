@@ -112,6 +112,9 @@ public class FindSupplies_Adapter extends ArrayAdapter<SupplyItem> {
 
         // set checkbox event
         CheckBox itemCheckBox = (CheckBox) rowView.findViewById(R.id.itemCheckBox);
+
+        if (suppliesList.equals(Home_Screen.shoppingList)) {
+        }
         itemCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
