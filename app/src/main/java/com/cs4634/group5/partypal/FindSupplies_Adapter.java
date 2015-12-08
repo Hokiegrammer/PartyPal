@@ -114,7 +114,9 @@ public class FindSupplies_Adapter extends ArrayAdapter<SupplyItem> {
         CheckBox itemCheckBox = (CheckBox) rowView.findViewById(R.id.itemCheckBox);
 
         if (suppliesList.equals(Home_Screen.shoppingList)) {
+            itemCheckBox.setVisibility(View.INVISIBLE);
         }
+
         itemCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
@@ -123,6 +125,7 @@ public class FindSupplies_Adapter extends ArrayAdapter<SupplyItem> {
                 if (isChecked)
                 {
                     Home_Screen.shoppingList.add(suppliesList.get(position));
+
                 }
                 else
                 {

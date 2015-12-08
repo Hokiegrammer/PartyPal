@@ -145,7 +145,6 @@ public class SupplyList_Screen extends AppCompatActivity {
         supplyList.setAdapter(adapter);
     }
 
-
     /**
      * Will populate array lists of supply items from the XML file
      */
