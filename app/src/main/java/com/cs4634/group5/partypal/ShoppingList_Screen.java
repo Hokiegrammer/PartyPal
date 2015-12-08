@@ -9,6 +9,7 @@ import android.location.LocationListener;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -69,7 +70,7 @@ public class ShoppingList_Screen extends AppCompatActivity implements LocationLi
 //                Polyline line3 = mMap.addPolyline(myLocation, walmart);
 
                 StringBuilder builder = new StringBuilder();
-                builder.append("http://maps.google.com/maps/dir/37.156946,-80.422643/");
+                builder.append("http://maps.google.com/maps?saddr=Current%20Location&daddr=");
 
 
                 boolean selectedTargetItem = false;
@@ -78,38 +79,36 @@ public class ShoppingList_Screen extends AppCompatActivity implements LocationLi
 
                 for (int i = 0; i < Home_Screen.shoppingList.size(); i++)
                 {
-                    if (Home_Screen.shoppingList.get(i).getStore().toString().equals("TARGET"))
+                    if (Home_Screen.shoppingList.get(i).getStore() == Store.TARGET)
                     {
                         selectedTargetItem = true;
                     }
 
-                    if (Home_Screen.shoppingList.get(i).getStore().toString().equals("DOLLAR_TREE"))
+                    if (Home_Screen.shoppingList.get(i).getStore() == Store.DOLLAR_TREE)
                     {
                         selectedDollarTreeItem = true;
                     }
 
-                    if (Home_Screen.shoppingList.get(i).getStore().toString().equals("WALMART"))
+                    if (Home_Screen.shoppingList.get(i).getStore() == Store.WALMART)
                     {
                         selectedWalmartItem = true;
                     }
                 }
 
-                if (selectedTargetItem) {
-                    // Find Target in navigation.
-                    builder.append(Store.TARGET.address() + "/");
-                }
-
                 if (selectedDollarTreeItem) {
                     // Find Dollar Tree in navigation.
-                    builder.append(Store.DOLLAR_TREE.address() + "/");
+                    builder.append(Store.DOLLAR_TREE.address() + "+to:");
+                }
+
+                if (selectedTargetItem) {
+                    // Find Target in navigation.
+                    builder.append(Store.TARGET.address() + "+to:");
                 }
 
                 if (selectedWalmartItem) {
                     // Find Walmart in navigation.
-                    builder.append(Store.WALMART.address() + "/");
+                    builder.append(Store.WALMART.address() + "+to:");
                 }
-
-                builder.deleteCharAt(builder.length() - 1);
 
                 Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
                         Uri.parse(builder.toString()));
